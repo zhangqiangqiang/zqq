@@ -1,2 +1,25 @@
 insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('6015', 'Case Management Report', '/fpages/creditcard/ftl/CaseManagementReport.ftl', 2, 0, '60', 15, null, '1', null, null, null, '1', null, null, null, null, null, 'icon-export-xls');
 insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('6016', 'System Management Overview', '/fpages/creditcard/ftl/OverViewReport.ftl', 2, 0, '60', 16, null, '1', null, null, null, '1', null, null, null, null, null, 'icon-export-xls');
+
+
+CREATE VIEW
+    VI_CREDIT_CARD_OVERVIEW AS
+SELECT
+    a.ALARM_DATE,
+    COUNT(1) AS GENERATE_ALERT,
+    SUM(
+        CASE
+            WHEN a.OPEN_ALERT_TIME IS NOT NULL
+            THEN 1
+            ELSE 0
+        END ) AS OPEN_ALERT,
+    SUM(
+        CASE
+            WHEN a.CLOSE_ALERT_TIME IS NOT NULL
+            THEN 1
+            ELSE 0
+        END ) AS CLOSE_ALERT
+FROM
+    CREDIT_CARD_ALERT a
+GROUP BY
+    a.ALARM_DATE
