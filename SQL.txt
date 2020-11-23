@@ -1,0 +1,88 @@
+alter table CREDIT_CARD_ALERT add RISK_LEVEL_ADJUSTED VARCHAR2(6);
+alter table CREDIT_CARD_ALERT add UR VARCHAR2(20);
+
+CREATE OR REPLACE VIEW VI_CREDIT_CARD_CASE_MANAGEMENT AS
+SELECT t.*,b.TLR_NAME from CREDIT_CARD_ALERT t LEFT JOIN TLR_INFO b ON t.OPERATOR_TLR=b.TLRNO 
+
+--Case Management Report
+insert into CREDIT_CARD_REPORT_CONF (REC_ID, REPORT_ID, REPORT_NAME, FIELD_NAME, FIELD_DESC, FIELD_TYPE, FIELD_DIC, FIELD_INDEX, RSV1, RSV2, RSV3, RSV4, RSV5, RSV6) values ('154', 'CaseManagement', 'Case Management', 'RISK_LEVEL_ADJUSTED', 'RISK_LEVEL_ADJUSTED', 'DATADIC', '1017', 4, null, null, null, null, null, null);
+
+--1017
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1099, 1017, 'ENC01', '风险层级', 5, 'High Risk', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1100, 1017, 'ENC02', '风险层级', 5, 'Medium Risk', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1101, 1017, 'ENC03', '风险层级', 5, 'Low Risk', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1103, 1017, 'NORMAL', '风险层级', 5, 'Normal', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1102, 1017, 'ENC05', '风险层级', 5, 'Attention List for Continous Monitoring', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+
+--1003
+UPDATE CREDIT_CARD_ALERT  SET INVESTIGATE_RESULT='15' WHERE INVESTIGATE_RESULT='91';
+UPDATE CREDIT_CARD_AUDIT_TRAIL SET NEW_VALUE='15-F(无需调查)' WHERE NEW_VALUE='91-无需调查' AND FILELD_NAME='调查结果';
+UPDATE CREDIT_CARD_AUDIT_TRAIL SET OLD_VALUE='15-F(无需调查)' WHERE OLD_VALUE='91-无需调查' AND FILELD_NAME='调查结果';
+DELETE FROM DATA_DIC  WHERE DATA_TYPE_NO = '1003';
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1018, 1003, '01', '调查结果', 2, '01-调查中', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1019, 1003, '11', '调查结果', 2, '11-F(白名单)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1020, 1003, '12', '调查结果', 2, '12-F(凭证通过)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1021, 1003, '14', '调查结果', 2, '14-F(外呼通过)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1022, 1003, '15', '调查结果', 2, '15-F(无需调查)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1023, 1003, '21', '调查结果', 2, '21-T(凭证未通过)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1024, 1003, '23', '调查结果', 2, '23-T(外呼未通过)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1025, 1003, '24', '调查结果', 2, '24-T(无法判断)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1026, 1003, '25', '调查结果', 2, '25-T(商户异常)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1027, 1003, '31', '调查结果', 2, '31-A(关注)', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+insert into DATA_DIC (ID, DATA_TYPE_NO, DATA_NO, DATA_TYPE_NAME, DATA_NO_LEN, DATA_NAME, LIMIT_FLAG, HIGH_LIMIT, LOW_LIMIT, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, APPROVE_STATUS, APPROVE_RESULT, REC_STATUS, REP_STATUS, IS_SUB_SUCCESS, CRT_TM, LST_UPD_TM, LST_UPD_TLR, APPTYPE, BR_NO, YWDATE, ORGCODE, RECORD_UPD_TLR, RECORD_UPD_TM, ST) values (1104, 1003, '41', '调查结果', 2, '41-已冻卡-其他party', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
+
+create or replace view vi_homepage_todo_credit as
+select SYS_GUID() as id,x.* from VI_HOMEPAGE_TODO_CREDIT_MSG x
+union
+select SYS_GUID() as id,x.* from VI_HOMEPAGE_TODO_CREDIT_OUT x
+union
+select SYS_GUID() as id,x.* from VI_HOMEPAGE_TODO_CREDIT_OTHER x;
+
+create or replace view vi_homepage_todo_credit_msg as
+select a.ALARM_DATE,a.OPERATOR_TLR,a.RISK_LEVEL,'01' AS TYPE,a.ALARM_NO,
+(select count(1) from AML_SSHLDYP d where d.natural_date>=to_date(substr(a.OPEN_ALERT_TIME,1,8),'yyyymmdd') and d.natural_date<=sysdate and d.is_holiday='0') AS NUM
+from vi_homepage_todo_credit_01 a  where a.INVESTIGATE_RESULT='01' and a.MESSAGE_RESULT in ('02','04')
+and to_date(substr(a.MSG_TIME,1,8), 'yyyymmdd')<=(
+select c.natural_date from (
+select rownum as rn,b.natural_date from ( select b.natural_date
+   from aml_sshldyp b
+  where b.natural_date <= sysDate
+    and b.is_holiday = '0'
+  order by b.natural_date desc)b )c where c.rn=6);
+
+create or replace view vi_homepage_todo_credit_out as
+select a.ALARM_DATE,a.OPERATOR_TLR,a.RISK_LEVEL,'02' AS TYPE,a.ALARM_NO,
+(select count(1) from AML_SSHLDYP d where d.natural_date>=to_date(substr(a.OPEN_ALERT_TIME,1,8),'yyyymmdd') and d.natural_date<=sysdate and d.is_holiday='0') AS NUM
+from vi_homepage_todo_credit_01 a  where a.INVESTIGATE_RESULT='01' and a.OUTBOUND_RESULT ='06'
+and to_date(substr(a.OUT_TIME,1,8), 'yyyymmdd')<=(
+select c.natural_date from (
+select rownum as rn,b.natural_date from ( select b.natural_date
+   from aml_sshldyp b
+  where b.natural_date <= sysDate
+    and b.is_holiday = '0'
+  order by b.natural_date desc)b )c where c.rn=2);
+
+create or replace view vi_homepage_todo_credit_other as
+select a.ALARM_DATE,a.OPERATOR_TLR,a.RISK_LEVEL,'03' AS TYPE,a.ALARM_NO,
+(select count(1) from AML_SSHLDYP d where d.natural_date>=to_date(substr(a.OPEN_ALERT_TIME,1,8),'yyyymmdd') and d.natural_date<=sysdate and d.is_holiday='0') AS NUM
+from vi_homepage_todo_credit_01 a  where a.INVESTIGATE_RESULT='01' and NVL(a.OUTBOUND_RESULT,' ') <>'06' and NVL(a.MESSAGE_RESULT,' ') not in ('02','04')
+and to_date(substr(a.OPEN_ALERT_TIME,1,8), 'yyyymmdd')<=(
+select c.natural_date from (
+select rownum as rn,b.natural_date from ( select b.natural_date
+   from aml_sshldyp b
+  where b.natural_date <= sysDate
+    and b.is_holiday = '0'
+  order by b.natural_date desc)b )c where c.rn=10);
+
+
+CREATE OR REPLACE VIEW VI_HOMEPAGE_TODO_CREDIT_01 AS
+SELECT q.OPERATOR_TIME AS MSG_TIME,k.OPERATOR_TIME AS OUT_TIME,z.* from CREDIT_CARD_ALERT z left join (
+SELECT * from CREDIT_CARD_AUDIT_TRAIL c where c.FILELD_NAME='短信结果' and c.OPERATOR_TIME = (select max(b.OPERATOR_TIME) from CREDIT_CARD_AUDIT_TRAIL b where c.ALARM_NO=b.ALARM_NO and  b.FILELD_NAME='短信结果')
+) q on z.ALARM_NO=q.ALARM_NO left join (
+SELECT distinct c.OPERATOR_TIME,c.ALARM_NO from CREDIT_CARD_AUDIT_TRAIL c where c.FILELD_NAME='外呼结果'and c.OPERATOR_TIME = (select max(b.OPERATOR_TIME) from CREDIT_CARD_AUDIT_TRAIL b 
+where c.ALARM_NO=b.ALARM_NO and  b.FILELD_NAME='外呼结果')
+) k on z.ALARM_NO=k.ALARM_NO
+
+
+
+
