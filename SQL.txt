@@ -1,21 +1,318 @@
-insert into SYS_PARAMS (PARAMGROUP_ID, PARAM_ID, PARAM_VAL, PARAM_NAME, MEMO, ST, IS_LOCK, IS_DEL, CRT_DT, LAST_UPD_TMS, LAST_UPD_OPER) values ('SMTP', 'MAILSVR', 'smtp.163.com', '邮件', null, '4', 'F', 'F', '20200923', '20200923101519', null);
-insert into SYS_PARAMS (PARAMGROUP_ID, PARAM_ID, PARAM_VAL, PARAM_NAME, MEMO, ST, IS_LOCK, IS_DEL, CRT_DT, LAST_UPD_TMS, LAST_UPD_OPER) values ('SMTP', 'USER', 'jsd1210zqq@163.com', '邮件', null, '4', 'F', 'F', '20200923', '20200923101519', null);
-insert into SYS_PARAMS (PARAMGROUP_ID, PARAM_ID, PARAM_VAL, PARAM_NAME, MEMO, ST, IS_LOCK, IS_DEL, CRT_DT, LAST_UPD_TMS, LAST_UPD_OPER) values ('SMTP', 'PWD', 'zqq19881001', '邮件', null, '4', 'F', 'F', '20200923', '20200923101519', null);
-insert into SYS_PARAMS (PARAMGROUP_ID, PARAM_ID, PARAM_VAL, PARAM_NAME, MEMO, ST, IS_LOCK, IS_DEL, CRT_DT, LAST_UPD_TMS, LAST_UPD_OPER) values ('SMTP', 'PORT', '25', '邮件', null, '4', 'F', 'F', '20200923', '20200923101519', null);
-insert into SYS_PARAMS (PARAMGROUP_ID, PARAM_ID, PARAM_VAL, PARAM_NAME, MEMO, ST, IS_LOCK, IS_DEL, CRT_DT, LAST_UPD_TMS, LAST_UPD_OPER) values ('SMTP', 'FROM', 'jsd1210zqq@163.com', '邮件', null, '4', 'F', 'F', '20200923', '20200923101519', null);
-insert into SYS_PARAMS (PARAMGROUP_ID, PARAM_ID, PARAM_VAL, PARAM_NAME, MEMO, ST, IS_LOCK, IS_DEL, CRT_DT, LAST_UPD_TMS, LAST_UPD_OPER) values ('SMTP', 'NEEDLOGIN', 'true', '邮件', null, '4', 'F', 'F', '20200923', '20200923101519', null);
+create table CPG_MSG_CTL
+(
+  id           VARCHAR2(32),
+  msg_id       VARCHAR2(20),
+  sys_type     VARCHAR2(20),
+  msg_name     VARCHAR2(90),
+  type         VARCHAR2(1),
+  sub_type     VARCHAR2(20),
+  status       VARCHAR2(1),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
 
-insert into REPORT_JOB_CONFIG (JOB_ID, JOB_NAME, JOB_CLASS_NAME, JOB_TIME, JOB_STAUTS, JUST_WORKDATE_RUN, JOB_REMARK, JOB_LST_TM, JOB_LST_TRL) values ('10003', '邮件发送', 'com.huateng.msgplatform.job.MsgPlatFormSendJob', '0 0 1/6 * * ?', '1', '1', null, TIMESTAMP '2020-09-23 14:37:05', 'admin3');
-insert into REPORT_JOB_CONFIG (JOB_ID, JOB_NAME, JOB_CLASS_NAME, JOB_TIME, JOB_STAUTS, JUST_WORKDATE_RUN, JOB_REMARK, JOB_LST_TM, JOB_LST_TRL) values ('10004', '邮件生成', 'com.huateng.msgplatform.job.MsgPlatFormGetSendDetailsJob', '0 0 1/6 * * ?', '1', '1', null, TIMESTAMP '2020-09-23 14:43:41', 'admin3');
+create table CPG_MSG_CTL_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  opt_type     VARCHAR2(1),
+  msg_id       VARCHAR2(20),
+  sys_type     VARCHAR2(20),
+  msg_name     VARCHAR2(90),
+  type         VARCHAR2(1),
+  sub_type     VARCHAR2(20),
+  status       VARCHAR2(1),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
 
+create table CPG_MSG_POOL
+(
+  id            VARCHAR2(32),
+  inner_id      VARCHAR2(32),
+  brno          VARCHAR2(14),
+  msg_id        VARCHAR2(20),
+  msg_sys_id    VARCHAR2(20),
+  msg_log_head  VARCHAR2(192),
+  status        VARCHAR2(1),
+  created_date  VARCHAR2(14),
+  source        VARCHAR2(20),
+  add_user_type VARCHAR2(1),
+  add_user      VARCHAR2(200),
+  rsv1          VARCHAR2(60),
+  rsv2          VARCHAR2(60),
+  rsv3          VARCHAR2(60),
+  rsv4          VARCHAR2(60),
+  rsv5          VARCHAR2(60),
+  msg_log       VARCHAR2(4000),
+  send_time     VARCHAR2(14),
+  failed_reason VARCHAR2(2048)
+)
 
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224000', '消息平台', null, 2, 1, '0', 33, null, '0', null, null, 'OTHER', '1', null, null, null, null, 'icon-mail-account', 'icon-message');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224001', '消息类型维护', '/fpages/msgplatform/ftl/CpgMsgCtl.ftl', 2, 0, '224000', 1, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-edit', 'icon-edit');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224002', '消息类型维护审核', '/fpages/msgplatform/ftl/CpgMsgCtlTmp.ftl', 2, 0, '224000', 2, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-ok', 'icon-ok');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224003', '接收用户维护', '/fpages/msgplatform/ftl/CpgUsrInf.ftl', 2, 0, '224000', 3, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-edit', 'icon-edit');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224004', '接收用户维护审核', '/fpages/msgplatform/ftl/CpgUsrInfTmp.ftl', 2, 0, '224000', 4, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-ok', 'icon-ok');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224007', '消息发送配置维护', '/fpages/msgplatform/ftl/MsgSendSetting.ftl', 2, 0, '224000', 7, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-edit', 'icon-edit');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224008', '消息发送配置维护审核', '/fpages/msgplatform/ftl/MsgSendSettingApv.ftl', 2, 0, '224000', 8, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-ok', 'icon-ok');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224009', '消息发送日志查询', '/fpages/msgplatform/ftl/MsgLogQry.ftl', 2, 0, '224000', 9, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-search', 'icon-search');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224005', '接收用户组维护', '/fpages/msgplatform/ftl/RcvUserGroup.ftl', 2, 0, '224000', 5, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-ok', 'icon-edit');
-insert into FUNCTION_INFO (FUNCID, FUNCNAME, PAGEPATH, LOCATION, ISDIRECTORY, LASTDIRECTORY, SHOWSEQ, FUNC_CLASS, FUNC_TYPE, WORKFLOW_FLAG, UP_FUNC_CODE, FUNC_DESC, STATUS, EFFECT_DATE, EXPIRE_DATE, TIMESTAMPS, MISCFLGS, MISC, ICON_CLS) values ('224006', '接收用户组审核', '/fpages/msgplatform/ftl/RcvUserGroupApv.ftl', 2, 0, '224000', 6, '1', '1', null, null, 'OTHER', '1', null, null, null, null, 'icon-ok', 'icon-ok');
+create table CPG_MSG_SND_CTL
+(
+  id           VARCHAR2(32),
+  msg_id       VARCHAR2(20),
+  opp_id_type  VARCHAR2(1),
+  opp_id       VARCHAR2(20 CHAR),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_MSG_SND_CTL_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  opt_type     VARCHAR2(1),
+  msg_id       VARCHAR2(20),
+  opp_id_type  VARCHAR2(1),
+  opp_id       VARCHAR2(20 CHAR),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_MSG_USR
+(
+  id           VARCHAR2(32),
+  user_id      VARCHAR2(20 CHAR),
+  send_type    VARCHAR2(2),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60),
+  rcv_inf      VARCHAR2(1024)
+)
+
+create table CPG_MSG_USR_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  opt_type     VARCHAR2(1),
+  user_id      VARCHAR2(20 CHAR),
+  send_type    VARCHAR2(2),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60),
+  rcv_inf      VARCHAR2(1024)
+)
+
+create table CPG_MSG_GROUP
+(
+  id           VARCHAR2(32),
+  group_id     VARCHAR2(20),
+  user_id      VARCHAR2(20 CHAR),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_MSG_GROUP_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  group_id     VARCHAR2(20),
+  opt_type     VARCHAR2(1),
+  user_id      VARCHAR2(20 CHAR),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_MSG_SND_DTL
+(
+  id            VARCHAR2(32),
+  inner_id      VARCHAR2(32),
+  msg_log_id    VARCHAR2(32),
+  msg_id        VARCHAR2(20),
+  opp_id        VARCHAR2(20 CHAR),
+  send_type     VARCHAR2(2),
+  status        VARCHAR2(1),
+  send_date     VARCHAR2(14),
+  rsv1          VARCHAR2(60),
+  rsv2          VARCHAR2(60),
+  rsv3          VARCHAR2(60),
+  rsv4          VARCHAR2(60),
+  rsv5          VARCHAR2(60),
+  rcv_inf       VARCHAR2(1024),
+  failed_reason VARCHAR2(4000)
+)
+
+create table CPG_USR_INF
+(
+  id           VARCHAR2(32),
+  user_id      VARCHAR2(20 CHAR),
+  user_name    VARCHAR2(96),
+  brno         VARCHAR2(14),
+  user_type    VARCHAR2(1),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60),
+  role_group   VARCHAR2(20)
+)
+
+create table CPG_USR_INF_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  opt_type     VARCHAR2(1),
+  user_id      VARCHAR2(20 CHAR),
+  user_name    VARCHAR2(96),
+  brno         VARCHAR2(14),
+  user_type    VARCHAR2(1),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_GROUP_INF
+(
+  id           VARCHAR2(32),
+  group_id     VARCHAR2(20),
+  group_name   VARCHAR2(96),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_GROUP_INF_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  group_id     VARCHAR2(20),
+  opt_type     VARCHAR2(1),
+  group_name   VARCHAR2(96),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_MSG_USR_BRANCH
+(
+  id           VARCHAR2(32),
+  user_id      VARCHAR2(20 CHAR),
+  brno         VARCHAR2(14),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  mod_user     VARCHAR2(20),
+  mod_date     VARCHAR2(14),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
+
+create table CPG_MSG_USR_BRANCH_TMP
+(
+  id           VARCHAR2(32),
+  inner_id     VARCHAR2(32),
+  opt_type     VARCHAR2(1),
+  user_id      VARCHAR2(20 CHAR),
+  brno         VARCHAR2(14),
+  brname       VARCHAR2(60),
+  creator      VARCHAR2(20),
+  created_date VARCHAR2(14),
+  check_user   VARCHAR2(20),
+  check_date   VARCHAR2(14),
+  opt_status   VARCHAR2(1),
+  rsv1         VARCHAR2(60),
+  rsv2         VARCHAR2(60),
+  rsv3         VARCHAR2(60),
+  rsv4         VARCHAR2(60),
+  rsv5         VARCHAR2(60)
+)
