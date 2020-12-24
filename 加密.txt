@@ -1,0 +1,6 @@
+security.provider.11=org.bouncycastle.jce.provider.BouncyCastleProvider
+
+keytool -genkey -alias merchant1 -keypass hsbcdev  -keyalg RSA -keysize 1024 -validity 365 -keystore MCP_dev_merchant1.bks
+
+
+13fcad7a58cbf31a725f1f8145724dce
